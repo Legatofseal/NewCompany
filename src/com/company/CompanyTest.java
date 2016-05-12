@@ -11,13 +11,17 @@ import static org.junit.Assert.*;
  */
 public class CompanyTest {
     private Company company;
-    private Employee employee;
+    private Employee employee ,employee1,employee2,employee3;
     private int index;
 
     @Before
     public void createEmp() {
-        company = new Company("IBM", 10);
+        company = new Company("IBM", 2);
         employee = new Employee(25, "John", 200, "Smith");
+        employee1 = new Employee(25, "John1", 200, "Smith1");
+        employee2 = new Employee(25, "John2", 200, "Smith2");
+        employee3 = new Employee(25, "John3", 200, "Smith3");
+
         this.index = 10;
     }
 
@@ -27,19 +31,57 @@ public class CompanyTest {
         company.addEmployee(employee);
         assertEquals(company.getEmployeesArray()[company.getCurrentSize() - 1], employee);
     }
+    @Test
+    public void addEmployeeWithResize() throws Exception {
+        company.addEmployee(employee);
+        company.addEmployee(employee);
+        company.addEmployee(employee);
+        company.addEmployee(employee);
+        company.addEmployee(employee);
+        company.addEmployee(employee);
+        assertEquals(company.getEmployeesArray()[company.getCurrentSize() - 1], employee);
+    }
+
+
+
 
     @Test
-    public void removeEmpByIndex() throws Exception {
-        company.removeEmpByIndex(index);
-        assertNotSame(employee, company.getEmployeesArray()[index]);
+    public void removeEmpByIndexSimple() throws Exception {
+        company.addEmployee(employee);
+        company.addEmployee(employee1);
+        company.addEmployee(employee2);
+        company.addEmployee(employee3);
+        company.removeEmpByIndex(1);
+        assertEquals(company.getEmployeesArray()[1],employee2);
+        assertEquals(company.getEmployeesArray()[3],null);
+
     }
-    @Test (expected = Exception.class)
-    public void testExeption (){
+    @Test (expected = ArrayIndexOutOfBoundsException.class)
+    public void removeEmpByIndexOutOfArraysBoundLessThanZero (){
+        company.addEmployee(employee);
+        company.addEmployee(employee1);
+        company.addEmployee(employee2);
+        company.addEmployee(employee3);
         company.removeEmpByIndex(-1);
     }
-    @Test
-    public void removeEmpByPattern() throws Exception {
 
+    @Test (expected = ArrayIndexOutOfBoundsException.class)
+    public void removeEmpByIndexOutOfArraysBoundMoreThanSize (){
+        company.addEmployee(employee);
+        company.addEmployee(employee1);
+        company.addEmployee(employee2);
+        company.addEmployee(employee3);
+        company.removeEmpByIndex(100);
+    }
+
+    @Test
+    public void removeFirstEmpByPattern() throws Exception {
+        company.addEmployee(employee);
+        company.addEmployee(employee2);
+        company.addEmployee(employee1);
+        company.addEmployee(employee3);
+        company.removeFirstEmpByPattern(employee1);
+        assertEquals(company.getEmployeesArray()[1],employee3);
     }
 
     @Test

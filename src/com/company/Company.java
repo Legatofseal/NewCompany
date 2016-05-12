@@ -1,13 +1,12 @@
 package com.company;
 
-import java.util.Iterator;
-
 /**
  * Created by Legat on 11.05.2016.
  */
 public class Company {
     private String companyName;
     private Employee[] employeesArray;
+    private int maxSize;
 
     public int getCurrentSize() {
         return currentSize;
@@ -19,25 +18,51 @@ public class Company {
         return employeesArray;
     }
 
-    private int startSize = 10;
-    private int resizeArraay (){
-        return -1;
-    }
 
-    public Company(String companyName,  int startSize) {
+
+
+    public Company(String companyName,  int maxSize) {
         this.companyName = companyName;
-        employeesArray = new Employee[startSize];
-        this.startSize = startSize;
+        employeesArray = new Employee[maxSize];
+        this.maxSize = maxSize;
     }
 
-    public int addEmployee (Employee employee){
-        return -1;
+    private void resizeArray (){
+        Employee[] newArr = new Employee[maxSize *2];
+        for (int i = 0; i< maxSize; i++){
+            newArr[i]=employeesArray[i];
+            employeesArray=newArr;
+        }
+        maxSize=maxSize*2;
     }
-    public int removeEmpByIndex (int index){
-        return -1;
+    public void addEmployee (Employee employee){
+        if (currentSize== maxSize){
+            resizeArray();
+        }
+        employeesArray[currentSize]=employee;
+        currentSize++;
+
     }
-    public int removeEmpByPattern (Employee employee){
-        return -1;
+    public void removeEmpByIndex (int index){
+        if (index<0||index>currentSize-1){
+            throw new ArrayIndexOutOfBoundsException("What the hell");
+        }
+        else {
+            for (int i=index; i<currentSize-1; i++){
+                employeesArray[i]=employeesArray[i+1];
+            }
+            employeesArray[currentSize-1]=null;
+            currentSize++;
+        }
+
+    }
+    public void removeFirstEmpByPattern (Employee employee){
+        for (int i=0; i<currentSize; i++){
+            if (employeesArray[i].equals(employee)){
+                removeEmpByIndex(i);
+                break;
+            }
+        }
     }
     public int removeAllByPattern (Employee employee){
         return -1;
