@@ -31,8 +31,9 @@ public class Company {
         Employee[] newArr = new Employee[maxSize *2];
         for (int i = 0; i< maxSize; i++){
             newArr[i]=employeesArray[i];
-            employeesArray=newArr;
+
         }
+        employeesArray=newArr;
         maxSize=maxSize*2;
     }
     public void addEmployee (Employee employee){
@@ -56,14 +57,37 @@ public class Company {
         }
 
     }
-    public void removeFirstEmpByPattern (Employee employee){
+    public boolean removeFirstEmpByPattern (Employee employee){
+        boolean check = false;
         for (int i=0; i<currentSize; i++){
             if (employeesArray[i].equals(employee)){
                 removeEmpByIndex(i);
+                check=true;
                 break;
             }
         }
+        return check;
     }
+
+    public boolean removeAllElementsButFirstByPattern(Employee employee){
+        int index =-1;
+        for (int i=0; i<currentSize; i++){
+            if (employeesArray[i].equals(employee)){
+                index=i;
+                break;
+            }
+        }
+        for (int i=index+1; i<currentSize; i++){
+            if (i!=index){
+                removeEmpByIndex(i);
+            }
+
+
+        }
+        return  false;
+    }
+
+
     public int removeAllByPattern (Employee employee){
         return -1;
     }

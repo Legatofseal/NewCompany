@@ -74,14 +74,33 @@ public class CompanyTest {
         company.removeEmpByIndex(100);
     }
 
+
     @Test
-    public void removeFirstEmpByPattern() throws Exception {
+    public void removeFirstEmpByPatternCorrectRemove() throws Exception {
         company.addEmployee(employee);
         company.addEmployee(employee2);
         company.addEmployee(employee1);
         company.addEmployee(employee3);
-        company.removeFirstEmpByPattern(employee1);
-        assertEquals(company.getEmployeesArray()[1],employee3);
+        assertTrue(company.removeFirstEmpByPattern(employee1));
+        assertEquals(company.getEmployeesArray()[2],employee3);
+        assertEquals(company.getEmployeesArray()[3],null);
+
+    }
+    @Test
+    public void removeFirstEmpByPatternElementNotInArray() throws Exception {
+        company.addEmployee(employee);
+        company.addEmployee(employee2);
+        company.addEmployee(employee3);
+        assertFalse(company.removeFirstEmpByPattern(employee1));
+    }
+    @Test
+    public void removeFirstEmpByPatternRemoveOnlyFirstElement() throws Exception {
+        company.addEmployee(employee);
+        company.addEmployee(employee2);
+        company.addEmployee(employee1);
+        company.addEmployee(employee1);
+        company.addEmployee(employee3);
+        assertEquals(company.getEmployeesArray()[2],employee1);
     }
 
     @Test
