@@ -108,4 +108,32 @@ public class CompanyTest {
 
     }
 
+    @Test
+    public void countLetter (){
+        assertTrue(Company.countLetter("Hello", 'H')==0);
+        assertTrue(Company.countLetter("hello", 'H')==0);
+        assertTrue(Company.countLetter("hello", 'l')==2);
+        assertTrue(Company.countLetter("hello", 't')==-1);
+    }
+    @Test
+    public void countLetterUpperCase (){
+        assertTrue(Company.countLetterCaseInsentive("Hello", 'H')==0);
+        assertTrue(Company.countLetterCaseInsentive("hello", 'H')==-1);
+        assertTrue(Company.countLetterCaseInsentive("hello", 'l')==2);
+    }
+
+    @Test
+    public void removeLetter (){
+        assertTrue(Company.removeLetter("Hello", 'l').equals("Heo"));
+        assertTrue(Company.removeLetter("Hello", 'h').equals("Hello"));
+        assertTrue(Company.removeLetter("Hehllo", 'h').equals("Hello"));
+        assertTrue(Company.removeLetter("Hello", 'o').equals("Hell"));
+    }
+    @Test
+    public void removeLetterConcat () {
+        assertTrue(Company.removeLetterConcat("Hello", 'l').equals("Heo"));
+        assertTrue(Company.removeLetterConcat("Hello", 'h').equals("Hello"));
+        assertTrue(Company.removeLetterConcat("Hehllo", 'h').equals("Hello"));
+        assertTrue(Company.removeLetterConcat("Hello", 'o').equals("Hell"));
+    }
 }

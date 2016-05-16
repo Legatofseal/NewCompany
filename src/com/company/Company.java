@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  * Created by Legat on 11.05.2016.
  */
@@ -87,7 +89,12 @@ public class Company {
         return  false;
     }
 
-
+    static void displayLetters(String string){
+        char[] chars = string.toCharArray();
+        for (int i = 0; i<chars.length; i++){
+            System.out.println(chars[i]);
+        }
+    }
     public int removeAllByPattern (Employee employee){
         return -1;
     }
@@ -96,6 +103,65 @@ public class Company {
         return -1;
     }
 
+    static int countLetter(String string, char letter){
+        int number = -1;
+        char[] chars = string.toCharArray();
+        for (int i=0; i<chars.length; i++){
+            if(Character.toLowerCase(letter)==Character.toLowerCase(chars[i])){
+                number=i;
+                break;
+            }
+        }
+        return number;
+    }
+    static int countLetterCaseInsentive(String string, char letter){
+        int number = -1;
+        char[] chars = string.toCharArray();
+        for (int i=0; i<chars.length; i++){
+            if(letter==chars[i]){
+                number=i;
+                break;
+            }
+        }
+        return number;
+    }
+    static String removeLetter(String string, char letter){
+        char[] chars = string.toCharArray();
+        ArrayList <Character> temp = new ArrayList<Character>();
+        for (int i=0; i<chars.length; i++){
+            if (chars[i]!=letter){
+                temp.add(chars[i]);
+            }
+        }
+        char [] result = new char[temp.size()];
+        for (int i=0; i<temp.size(); i++){
+            result[i]=temp.get(i);
+        }
+        String out = new String(result);
+        return  out;
+
+
+       //      String out = new StringBuilder(temp.toArray()).toString();
+       //     return out;
+
+
+    }
+    static String removeLetterConcat(String string, char letter){
+        String out = new String("");
+        char[] chars = string.toCharArray();
+        ArrayList <Character> temp = new ArrayList<Character>();
+        for (int i=0; i<chars.length; i++){
+            if (chars[i]!=letter){
+                out+=chars[i];
+            }
+        }
+
+        return  out;
+      //      String out = new StringBuilder(temp.toArray()).toString();
+        //     return out;
+
+
+    }
 
 
 
